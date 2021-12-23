@@ -27,7 +27,8 @@ public class UserService {
         User salt = userRepository.findByLogin(login);
         try {
             if(salt != null)
-                passwordCrypt = Hasher.hashPassword(password, Hasher.generateSalt(), 10);
+                passwordCrypt = Hasher.hashPassword(salt.getSalt(), password,1000);
+            System.out.println(passwordCrypt);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -39,7 +40,7 @@ public class UserService {
             tokenConnexion = tokenService.generateToken(user);
             mapInformations.put("token", tokenConnexion);
             mapInformations.put("role", user.getRole());
-        } else if (user!=null && user.getTentative() <= 3){
+        } else if (user!=null && user.getTentative() >= 3){
             mapInformations = new HashMap<>();
             mapInformations.put("error", "Trop de tentative");
         }

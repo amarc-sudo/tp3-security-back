@@ -21,7 +21,7 @@ public class TokenService {
     TokenRepository tokenRepository;
 
     public Optional<Token> checkTokenUnique(String authToken) {
-        return tokenRepository.findByTokenEquals(authToken);
+        return tokenRepository.findByToken(authToken);
     }
 
     public String generateToken(User user){
@@ -34,6 +34,6 @@ public class TokenService {
     }
 
     public boolean checkToken(String token) {
-        return tokenRepository.findByTokenEquals(token).isPresent();
+        return tokenRepository.findByToken(token).isPresent();
     }
 }

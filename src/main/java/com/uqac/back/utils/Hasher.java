@@ -13,16 +13,12 @@ public class Hasher {
     public static String hashPassword(String salt, String password, Integer iterations) throws NoSuchAlgorithmException {
 
         byte[] bSalt = Base64.getDecoder().decode(salt);
-
-
         MessageDigest md = MessageDigest.getInstance("SHA-512");
         md.update(bSalt);
-
         byte[] hashedPassword = new byte[0];
         hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
         for (int i = 0; i < iterations; i++)
             hashedPassword = md.digest(hashedPassword);
-
         return Base64.getEncoder().encodeToString(hashedPassword);
     }
 

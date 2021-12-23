@@ -38,7 +38,7 @@ public class UserController {
      * @see com.uqac.back.configuration.APISecurity
      * @return Boolean
      */
-    @CrossOrigin
+    @CrossOrigin("*")
     @GetMapping("admin/check")
     public boolean checkAdmin(){
         return true;
@@ -49,7 +49,7 @@ public class UserController {
      * @see com.uqac.back.configuration.APISecurity
      * @return Boolean
      */
-    @CrossOrigin
+    @CrossOrigin("*")
     @GetMapping("residentiel/check")
     public boolean checkResidentiel(){
         return true;
@@ -60,7 +60,7 @@ public class UserController {
      * @see com.uqac.back.configuration.APISecurity
      * @return Boolean
      */
-    @CrossOrigin
+    @CrossOrigin("*")
     @GetMapping("affaire/check")
     public boolean CheckAffaire(){
         return true;

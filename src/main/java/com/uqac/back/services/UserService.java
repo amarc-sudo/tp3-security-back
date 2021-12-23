@@ -42,7 +42,7 @@ public class UserService {
             mapInformations.put("role", user.getRole());
         } else if (user!=null && user.getTentative() >= 3){
             mapInformations = new HashMap<>();
-            mapInformations.put("error", "Trop de tentative");
+            mapInformations.put("error", "Trop de tentative, contacter un administrateur");
         }
         else if(salt!=null) {
             salt.setTentative(salt.getTentative() + 1);

@@ -26,7 +26,7 @@ public class APISecurity extends WebSecurityConfigurerAdapter {
 
     private final String[] urlResidentielConnected = new String[]{
             "/rest/api/user/residentiel/check",
-            "/rest/api/client-residentiel/getAll"
+            "/rest/api/residentiel/getAll"
     };
 
     private final String[] urlAdminConnected = new String[]{
@@ -35,7 +35,7 @@ public class APISecurity extends WebSecurityConfigurerAdapter {
 
     private final String[] urlAffaireConnected = new String[]{
             "/rest/api/user/affaire/check",
-            "/rest/api/client-affaire/getAll"
+            "/rest/api/affaire/getAll"
     };
 
     @Override
@@ -61,6 +61,6 @@ public class APISecurity extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .logout().disable().cors().disable();
+                .logout().disable();
     }
 }

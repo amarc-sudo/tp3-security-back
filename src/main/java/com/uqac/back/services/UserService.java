@@ -42,7 +42,7 @@ public class UserService {
         User user = userRepository.findByPasswordAndLogin(passwordCrypt, login);
         String tokenConnexion = null;
         Map<String, Object> mapInformations = null;
-        if (user != null && user.getTentative() <= 3) {
+        if (user != null && user.getTentative() <= securityDatumService.findByTag("tentative").getVariable()) {
             this.logger.info("Réussite de la connexion de " + login);
             mapInformations = new HashMap<>();
             tokenConnexion = tokenService.generateToken(user);

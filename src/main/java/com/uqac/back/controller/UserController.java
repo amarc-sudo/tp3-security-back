@@ -48,6 +48,21 @@ public class UserController {
     }
 
     /**
+     * Fonction qui retourne une mapInformation soit avec un token et un role soit avec un message d'erreur
+     * @param mapInformations
+     * @return mapInformations
+     * @throws NoSuchAlgorithmException
+     */
+    @CrossOrigin
+    @PostMapping("changePasswordUser")
+    public void changePasswordUser(@RequestBody Map<String, String> mapInformations) throws NoSuchAlgorithmException {
+        String password = mapInformations.get("password");
+        String newpassword = mapInformations.get("newpassword");
+        String login = mapInformations.get("login");
+        userService.changePasswordUser(login, password,  newpassword);
+    }
+
+    /**
      * Fonction qui peut return true que si le token est bon car il passe par l'APISecurity
      * @see com.uqac.back.configuration.APISecurity
      * @return Boolean

@@ -36,4 +36,8 @@ public class TokenService {
     public boolean checkToken(String token) {
         return tokenRepository.findByToken(token).isPresent();
     }
+
+    public void deleteToken(Token token) {
+        tokenRepository.delete(token);
+    }
 }

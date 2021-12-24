@@ -2,6 +2,7 @@ package com.uqac.back.services;
 
 import com.uqac.back.beans.Token;
 import com.uqac.back.beans.User;
+import com.uqac.back.repository.SecurityDatumRepository;
 import com.uqac.back.repository.UserRepository;
 import com.uqac.back.utils.Hasher;
 import org.slf4j.Logger;
@@ -21,6 +22,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    SecurityDatumService securityDatumService;
 
     @Autowired
     TokenService tokenService;
@@ -72,6 +76,23 @@ public class UserService {
                 salt.setPassword(passwordCrypt);
                 userRepository.save(salt);
                 this.logger.info("Changement du mot de passe de " + login);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changePasswordUser(String login, String password, String newpassword) {
+
+        String passwordCrypt = "";
+        User salt = userRepository.findByLogin(login);
+        String newSalt = Hasher.generateSalt();
+        try {
+            if (salt != null)
+                passwordCrypt = Hasher.hashPassword(newSalt, password, 1000);
+            salt.setSalt(newSalt);
+            salt.setPassword(passwordCrypt);
+            userRepository.save(salt);
+            this.logger.info("Changement du mot de passe de " + login);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

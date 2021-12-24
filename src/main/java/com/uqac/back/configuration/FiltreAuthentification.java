@@ -14,6 +14,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,11 +44,14 @@ public class FiltreAuthentification extends GenericFilterBean {
                 Optional<Token> tokenOptional = tokenService.checkTokenUnique(authToken);
 
                 if (tokenOptional.isPresent()) {
-
                     Token token = tokenOptional.get();
-                    authorityList.add(new SimpleGrantedAuthority(token.getUser().getRole().getTagRole()));
-                    UsernamePasswordAuthenticationToken tokens = new UsernamePasswordAuthenticationToken("", "", authorityList);
-                    SecurityContextHolder.getContext().setAuthentication(tokens);
+                    if (token.getDateExpirationToken().isAfter(Instant.now())) {
+                        authorityList.add(new SimpleGrantedAuthority(token.getUser().getRole().getTagRole()));
+                        UsernamePasswordAuthenticationToken tokens = new UsernamePasswordAuthenticationToken("", "", authorityList);
+                        SecurityContextHolder.getContext().setAuthentication(tokens);
+                    } else{
+                        tokenService.deleteToken(token);
+                    }
                 }
             }
             filterChain.doFilter(servletRequest, servletResponse);

@@ -31,6 +31,10 @@ public class APISecurity extends WebSecurityConfigurerAdapter {
 
     private final String[] urlAdminConnected = new String[]{
             "/rest/api/user/admin/check",
+            "/rest/api/security/getAll",
+            "/rest/api/security/findAll",
+            "/rest/api/user/changePassword",
+
     };
 
     private final String[] urlAffaireConnected = new String[]{
